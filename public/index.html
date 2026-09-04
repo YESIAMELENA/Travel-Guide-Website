@@ -2,15 +2,881 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Jeju Guide</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Jeju 濟州島 · 9/6–9/10</title>
 <style>
-  body{margin:0;display:grid;place-items:center;min-height:100vh;
-       font:16px/1.6 system-ui,-apple-system,"PingFang SC",sans-serif;
-       background:#faf8f5;color:#3a3632}
-  @media(prefers-color-scheme:dark){body{background:#1a1816;color:#e8e3dc}}
+:root{
+  --ash:#EFEDE8;
+  --ash-2:#E4E1D9;
+  --ink:#23201C;
+  --ink-soft:#6B655C;
+  --ink-faint:#9A9288;
+  --basalt:#191713;
+  --basalt-2:#252118;
+  --tangerine:#F26522;
+  --jade:#187C74;
+  --line:#D3CFC4;
+  --card:#F7F5F1;
+  --d1:#F26522;
+  --d2:#187C74;
+  --d3:#2F5D9E;
+  --d4:#8E3B6B;
+  --d5:#5A6570;
+  --d0:#7B6A52;
+  --warn:#C4451C;
+  --sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ash:#141210;
+    --ash-2:#1E1B17;
+    --ink:#EDE8DF;
+    --ink-soft:#A29A8E;
+    --ink-faint:#736C62;
+    --line:#332E27;
+    --card:#1C1915;
+    --tangerine:#FF7A3D;
+    --jade:#3FA79C;
+    --d1:#FF7A3D;
+    --d2:#3FA79C;
+    --d3:#5B8FD6;
+    --d4:#C36A9B;
+    --d5:#8B96A2;
+    --d0:#B79B72;
+    --warn:#FF8158;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ash);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.65;
+  padding:0 0 env(safe-area-inset-bottom);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em}
+a{color:inherit}
+hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+
+/* ---------- masthead ---------- */
+.masthead{padding:26px 0 14px}
+.masthead h1{font-size:26px;line-height:1.25}
+.masthead .ko{color:var(--ink-soft);font-size:15px;margin-top:4px}
+
+/* ---------- hero countdown ---------- */
+.now{
+  background:var(--basalt);color:#F2EFE8;border-radius:18px;
+  padding:22px 20px 20px;margin:6px 0 30px;position:relative;overflow:hidden;
+}
+.now::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 88% -10%,rgba(242,101,34,.16),transparent 62%);
+}
+.now .lbl{font-size:12.5px;color:#9C9384;margin-bottom:9px}
+.now .evt{font-size:19px;font-weight:600;line-height:1.35;position:relative}
+.now .evt .sub{display:block;font-size:13.5px;font-weight:400;color:#A9A091;margin-top:3px}
+.clock{display:flex;gap:6px;margin:18px 0 12px;position:relative}
+.unit{flex:1;background:rgba(255,255,255,.055);border-radius:11px;padding:11px 4px 8px;text-align:center}
+.unit b{
+  display:block;font-size:31px;font-weight:650;line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;color:var(--tangerine);
+}
+.unit span{display:block;font-size:11px;color:#8E8677;margin-top:6px}
+.now .tz{font-size:12.5px;color:#8E8677;position:relative;line-height:1.6}
+.now .tz b{color:#C9C0B0;font-weight:500}
+
+/* ---------- section headings ---------- */
+.sec{margin:0 0 14px}
+.sec h2{font-size:19px}
+.sec p{margin:5px 0 0;font-size:13.5px;color:var(--ink-soft)}
+
+/* ---------- overview map ---------- */
+.mapbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 8px 6px}
+.mapbox svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 8px 10px;font-size:12.5px;color:var(--ink-soft)}
+.legend i{display:inline-block;width:15px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.legend .bed{font-style:normal;width:auto;height:auto;margin-right:5px}
+
+/* ---------- booking cards ---------- */
+.bk{border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin-bottom:11px;background:var(--card)}
+.bk .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.bk h3{font-size:16.5px}
+.bk .tag{font-size:11.5px;color:var(--ink-faint);white-space:nowrap;flex-shrink:0}
+.bk dl{margin:11px 0 0;display:grid;grid-template-columns:64px 1fr;gap:5px 12px;font-size:14px}
+.bk dt{color:var(--ink-faint);font-size:13px}
+.bk dd{margin:0}
+.bk .tm{font-variant-numeric:tabular-nums}
+.bk a.tel{color:var(--jade);text-decoration:none;border-bottom:1px solid rgba(24,124,116,.35)}
+
+/* ---------- day ---------- */
+.day{margin:0 0 8px;border-top:1px solid var(--line);padding-top:20px}
+.day:first-of-type{border-top:0}
+.dayhd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.dayhd .n{
+  font-size:12px;font-weight:600;color:#fff;background:var(--dc);
+  border-radius:20px;padding:2px 10px;letter-spacing:.02em;
+}
+.dayhd h3{font-size:17.5px}
+.dayhd .wd{font-size:13px;color:var(--ink-faint)}
+.daynote{font-size:13.5px;color:var(--ink-soft);margin:7px 0 0}
+
+.routebtn{
+  margin:12px 0 4px;width:100%;text-align:left;cursor:pointer;
+  background:transparent;border:1px solid var(--line);border-radius:11px;
+  padding:10px 13px;font:inherit;font-size:13.5px;color:var(--ink-soft);
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.routebtn:hover{border-color:var(--dc)}
+.routebtn .chev{transition:transform .2s ease;font-size:11px;color:var(--ink-faint)}
+.routebtn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.routepanel{display:none;border:1px solid var(--line);border-top:0;border-radius:0 0 11px 11px;margin-top:-5px;padding:12px 13px 14px}
+.routepanel.open{display:block}
+.routepanel svg{display:block;width:100%;height:auto;margin-bottom:10px}
+.legs{font-size:13px}
+.leg{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px dashed var(--line)}
+.leg:first-child{border-top:0}
+.leg .txt{flex:1;color:var(--ink-soft);line-height:1.4}
+.leg a{
+  font-size:12px;text-decoration:none;padding:4px 9px;border-radius:7px;
+  background:var(--ash-2);color:var(--ink);white-space:nowrap;
+}
+
+/* ---------- timeline ---------- */
+.tl{margin:14px 0 0}
+.row{display:grid;grid-template-columns:60px 1fr;gap:0 14px;position:relative}
+.row .t{
+  font-size:13.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums;
+  padding-top:11px;text-align:right;line-height:1.3;
+}
+.row .t small{display:block;font-size:11px;color:var(--ink-faint);opacity:.75}
+.row .c{
+  border-left:2px solid var(--line);padding:11px 0 13px 16px;position:relative;
+}
+.row .c::before{
+  content:"";position:absolute;left:-5px;top:17px;width:8px;height:8px;
+  border-radius:50%;background:var(--ash);border:2px solid var(--dc);
+}
+.row:last-child .c{border-left-color:transparent}
+.row.work .c::before{background:var(--warn);border-color:var(--warn)}
+.row .ttl{font-size:15.5px;font-weight:550;line-height:1.4}
+.row .ko{font-size:13px;color:var(--ink-soft);margin-top:2px}
+.row .en{font-size:12.5px;color:var(--ink-faint);margin-top:1px}
+.row .desc{font-size:13.5px;color:var(--ink-soft);margin-top:6px;line-height:1.55}
+
+.badge{
+  display:inline-block;font-size:11.5px;padding:1.5px 8px;border-radius:20px;
+  margin:6px 6px 0 0;vertical-align:middle;
+}
+.b-warn{background:rgba(196,69,28,.12);color:var(--warn)}
+.b-fee{background:var(--ash-2);color:var(--ink-soft)}
+.b-work{background:rgba(196,69,28,.12);color:var(--warn)}
+
+.navs{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.navs a{
+  font-size:12.5px;text-decoration:none;padding:5px 11px;border-radius:8px;
+  background:var(--ash-2);color:var(--ink);border:1px solid transparent;
+}
+.navs a.n1{background:rgba(24,124,116,.13);color:var(--jade)}
+.navs a:active{opacity:.65}
+
+/* ---------- todo & tips ---------- */
+.todo{margin:0;padding:0;list-style:none;counter-reset:td}
+.todo li{
+  counter-increment:td;position:relative;padding:11px 0 11px 34px;
+  border-top:1px solid var(--line);font-size:14.5px;line-height:1.55;
+}
+.todo li:first-child{border-top:0}
+.todo li::before{
+  content:counter(td);position:absolute;left:0;top:12px;
+  width:22px;height:22px;border-radius:50%;background:var(--ash-2);
+  color:var(--ink-soft);font-size:12px;display:grid;place-items:center;
+  font-variant-numeric:tabular-nums;
+}
+.todo li.hot::before{background:rgba(196,69,28,.14);color:var(--warn)}
+.todo .m{display:block;font-size:13px;color:var(--ink-soft);margin-top:3px}
+.todo a{color:var(--jade);text-decoration:none;border-bottom:1px solid rgba(24,124,116,.35)}
+
+.tip{border-top:1px solid var(--line);padding:13px 0}
+.tip:first-child{border-top:0}
+.tip h3{font-size:14.5px;margin-bottom:4px}
+.tip p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+.tip .ko{font-family:var(--sans)}
+
+footer{padding:30px 0 40px;font-size:12.5px;color:var(--ink-faint);line-height:1.7}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+:focus-visible{outline:2px solid var(--tangerine);outline-offset:2px;border-radius:4px}
 </style>
 </head>
-<body><p>行程手册准备中</p></body>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <h1>濟州島 5 天 4 晚</h1>
+  <div class="ko">제주도 · Jeju Island · 9 月 6 日 – 9 月 10 日</div>
+</header>
+
+<!-- ============ 此刻關注 ============ -->
+<section class="now" id="now">
+  <div class="lbl">此刻關注 · Up next</div>
+  <div class="evt" id="evtTitle">載入中<span class="sub" id="evtSub"></span></div>
+  <div class="clock">
+    <div class="unit"><b id="cd">–</b><span>天 days</span></div>
+    <div class="unit"><b id="ch">–</b><span>時 hrs</span></div>
+    <div class="unit"><b id="cm">–</b><span>分 min</span></div>
+    <div class="unit"><b id="cs">–</b><span>秒 sec</span></div>
+  </div>
+  <div class="tz" id="tzLine"></div>
+</section>
+
+<!-- ============ 地圖 ============ -->
+<section>
+  <div class="sec">
+    <h2>行程總覽</h2>
+    <p>按天分色。床形標記是當晚住宿。</p>
+  </div>
+  <div class="mapbox">
+    <svg viewBox="0 0 420 232" role="img" aria-label="濟州島行程路線圖">
+      <defs>
+        <filter id="rough" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.021" numOctaves="3" seed="9" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="rough2" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n2"/>
+          <feDisplacementMap in="SourceGraphic" in2="n2" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+
+      <!-- island -->
+      <g filter="url(#rough)">
+        <path d="M22,104 C42,58 112,25 202,20 C302,15 382,52 406,86 C413,112 368,152 298,177 C228,200 148,201 88,179 C44,161 15,132 22,104 Z"
+              fill="var(--ash-2)" stroke="var(--line)" stroke-width="1.6"/>
+        <!-- hallasan -->
+        <path d="M172,124 L197,101 L222,124 Z" fill="none" stroke="var(--ink-faint)" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M186,111 L197,101 L208,111" fill="none" stroke="var(--ink-faint)" stroke-width="1.1"/>
+      </g>
+      <text x="197" y="140" text-anchor="middle" font-size="8.5" fill="var(--ink-faint)" font-family="var(--sans)">한라산 漢拏山</text>
+
+      <!-- routes -->
+      <g filter="url(#rough2)" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".92">
+        <path d="M179,45 L121,174 L112,175 L121,174 L147,174" stroke="var(--d1)"/>
+        <path d="M121,176 L199,177 L207,175 L124,178" stroke="var(--d2)"/>
+        <path d="M124,171 L138,55 L174,55 L91,68" stroke="var(--d3)"/>
+        <path d="M174,52 L188,40 L196,42" stroke="var(--d4)"/>
+        <path d="M171,53 L177,46" stroke="var(--d5)" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- points -->
+      <g font-size="8" font-family="var(--sans)" fill="var(--ink)">
+        <circle cx="179" cy="45" r="4" fill="var(--ash)" stroke="var(--ink)" stroke-width="1.6"/>
+        <text x="186" y="41">CJU 機場</text>
+
+        <circle cx="121" cy="174" r="5.5" fill="var(--d1)"/>
+        <text x="112" y="190" text-anchor="middle">🛏 Bayhill</text>
+        <text x="112" y="199" text-anchor="middle" font-size="7" fill="var(--ink-soft)">9/6 · 9/7</text>
+
+        <circle cx="174" cy="55" r="5.5" fill="var(--d3)"/>
+        <text x="196" y="66">🛏 Grand Hyatt</text>
+        <text x="196" y="75" font-size="7" fill="var(--ink-soft)">9/8 · 9/9</text>
+
+        <circle cx="147" cy="174" r="3.4" fill="var(--d1)"/>
+        <text x="152" y="169" font-size="7.5">柱狀節理</text>
+
+        <circle cx="112" cy="175" r="3.4" fill="var(--d1)"/>
+        <text x="96" y="212" text-anchor="middle" font-size="7.5">올레 8 · 大坪</text>
+
+        <circle cx="199" cy="177" r="3.4" fill="var(--d2)"/>
+        <circle cx="207" cy="175" r="3.4" fill="var(--d2)"/>
+        <text x="214" y="190" font-size="7.5">西歸浦 · 潛水</text>
+
+        <circle cx="138" cy="55" r="3.4" fill="var(--d3)"/>
+        <text x="134" y="47" text-anchor="middle" font-size="7.5">鰻魚飯</text>
+
+        <circle cx="91" cy="68" r="3.4" fill="var(--d3)"/>
+        <text x="86" y="60" text-anchor="middle" font-size="7.5">涯月 애월</text>
+
+        <circle cx="188" cy="40" r="3.4" fill="var(--d4)"/>
+        <circle cx="196" cy="42" r="3.4" fill="var(--d4)"/>
+        <text x="228" y="34" font-size="7.5">龍頭巖 · 東門市場</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span><i style="background:var(--d1)"></i>9/6 抵達</span>
+      <span><i style="background:var(--d2)"></i>9/7 潛水</span>
+      <span><i style="background:var(--d3)"></i>9/8 轉場 + 涯月</span>
+      <span><i style="background:var(--d4)"></i>9/9 市區</span>
+      <span><i style="background:var(--d5)"></i>9/10 回程</span>
+      <span><i class="bed">🛏</i>當晚住宿</span>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ============ 已確認 ============ -->
+<section>
+  <div class="sec">
+    <h2>已確認</h2>
+    <p>機票與住宿。所有時間為當地時間。</p>
+  </div>
+
+  <div class="bk">
+    <div class="top"><h3>HK Express UO698</h3><span class="tag">去程</span></div>
+    <dl>
+      <dt>起飛</dt><dd class="tm">9/6 (日) 02:30　香港 HKG · Terminal 2</dd>
+      <dt>抵達</dt><dd class="tm">9/6 (日) 06:30　濟州 CJU</dd>
+      <dt>行李</dt><dd>不托運，手提行李</dd>
+    </dl>
+  </div>
+
+  <div class="bk">
+    <div class="top"><h3>HK Express UO699</h3><span class="tag">回程</span></div>
+    <dl>
+      <dt>起飛</dt><dd class="tm">9/10 (四) 07:30　濟州 CJU</dd>
+      <dt>抵達</dt><dd class="tm">9/10 (四) 09:40　香港 HKG · Terminal 1</dd>
+      <dt>櫃檯</dt><dd>約 01:30 前 / 06:30 前關閉，提早 2 小時到</dd>
+    </dl>
+  </div>
+
+  <div class="bk">
+    <div class="top"><h3>Bayhill Pool &amp; Villa</h3><span class="tag">9/6 · 9/7</span></div>
+    <dl>
+      <dt>入住</dt><dd class="tm">9/6 (日) 15:00</dd>
+      <dt>退房</dt><dd class="tm">9/8 (二) 11:00</dd>
+      <dt>房型</dt><dd>Studio Double · 1 queen bed</dd>
+      <dt>地址</dt><dd>424 Yerae-ro, Seogwipo-si, Jeju 63538<br><span style="color:var(--ink-soft);font-size:13px">서귀포시 예래로 424</span></dd>
+      <dt>電話</dt><dd><a class="tel" href="tel:+82648019000">+82 64-801-9000</a></dd>
+    </dl>
+    <div class="navs">
+      <a class="n1" target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EB%B2%A0%EC%9D%B4%ED%9E%90%ED%92%80%EB%B9%8C%EB%9D%BC">Naver</a>
+      <a target="_blank" rel="noopener" href="https://map.kakao.com/link/to/Bayhill,33.2375461,126.3721708">Kakao 導航</a>
+      <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=33.2375461,126.3721708">Google 看圖</a>
+    </div>
+  </div>
+
+  <div class="bk">
+    <div class="top"><h3>Grand Hyatt Jeju</h3><span class="tag">9/8 · 9/9</span></div>
+    <dl>
+      <dt>入住</dt><dd class="tm">9/8 (二) 15:00</dd>
+      <dt>退房</dt><dd class="tm">9/10 (四) 11:00　<span style="color:var(--warn)">實際 05:30 離開</span></dd>
+      <dt>房型</dt><dd>65 ㎡ · 2 twin beds</dd>
+      <dt>地址</dt><dd>12 Noyeon-ro, Jeju-si, Jeju<br><span style="color:var(--ink-soft);font-size:13px">제주시 노연로 12</span></dd>
+      <dt>電話</dt><dd><a class="tel" href="tel:+82649071234">+82 64-907-1234</a></dd>
+      <dt>到機場</dt><dd>約 3 km · 12–15 分鐘</dd>
+    </dl>
+    <div class="navs">
+      <a class="n1" target="_blank" rel="noopener" href="https://map.naver.com/p/search/%EA%B7%B8%EB%9E%9C%EB%93%9C%ED%95%98%EC%96%90%ED%8A%B8%EC%A0%9C%EC%A3%BC">Naver</a>
+      <a target="_blank" rel="noopener" href="https://map.kakao.com/link/to/Grand%20Hyatt%20Jeju,33.4853707,126.4815713">Kakao 導航</a>
+      <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=33.4853707,126.4815713">Google 看圖</a>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ============ 逐日 ============ -->
+<section>
+  <div class="sec">
+    <h2>逐日行程</h2>
+    <p>左邊時間為濟州時間 KST。夜班時段以紅點標出。</p>
+  </div>
+  <div id="days"></div>
+</section>
+
+<hr>
+
+<!-- ============ 待辦 ============ -->
+<section>
+  <div class="sec">
+    <h2>待辦</h2>
+    <p>辦完一項告訴我，我改頁面。</p>
+  </div>
+  <ol class="todo">
+    <li class="hot">跟工作確認 9/10 的班
+      <span class="m">00:00–09:00 的班，05:00 之後要去機場、之後在飛機上（廉航無 Wi-Fi）。確認後 4 小時怎麼補。</span></li>
+    <li class="hot">預約 9/10 清晨 05:15 送機車
+      <span class="m">打 Grand Hyatt <a href="tel:+82649071234">+82 64-907-1234</a> 或到店跟禮賓部說。別賭 Kakao T。</span></li>
+    <li class="hot">確認漫遊套餐的每日流量與熱點
+      <span class="m">全球通已覆蓋韓國。出發前查清楚每日高速流量上限、超額後會不會限速，以及套餐是否允許開熱點——兩晚各 9 小時夜班全靠它兜底。</span></li>
+    <li>裝 Kakao T，綁國際信用卡
+      <span class="m">濟州的主力叫車 App。出發前先試叫一次，確認卡能過。</span></li>
+    <li>裝 Naver Map
+      <span class="m">Google 在韓國不能導航。Naver 走路和公車最準。</span></li>
+    <li>打 Bayhill 確認房型權益
+      <span class="m"><a href="tel:+82648019000">+82 64-801-9000</a>　Studio 房型是否含泳池／湯池使用權，有住客反映不含。</span></li>
+    <li class="hot">決定 9/5 上水→機場走 A43 還是打車
+      <span class="m">A43 約 75–85 分鐘、HK$32.4；打車 45–55 分鐘、HK$400–500。晚餐 20:00 結束的話 A43 綽綽有餘；拖過 21:00 就直接打車。</span></li>
+    <li>訂 9/5 深圳晚餐的位
+      <span class="m">肉祭燒肉一番（羅湖益田假日廣場店），晚市 16:30–21:30。週六商場人多，先訂位。</span></li>
+    <li>把 12306 改簽頁面預先打開
+      <span class="m">廣州南換乘只有 18 分鐘。C6934 一旦晚點，馬上改簽下一班到深圳北的車，別在站台上乾等。</span></li>
+    <li>9/8 出門前用 Naver 查東京飯桌是否營業
+      <span class="m">公休日不明、售罄即收。門口若掛售罄牌，先確認是不是前一天沒撤。</span></li>
+    <li class="hot">備好 ₩160,000 現金給潛水
+      <span class="m">付現比刷卡省 ₩10,000。9/6 落地當天就在機場或西歸浦領好，別拖到 9/7 早上。韓國找貼有 Visa／Plus／Cirrus 標誌的 Global ATM，或 CU、GS25 便利店的 ATM。東門市場和路邊小店也有攤位只收現金。</span></li>
+    <li class="hot">問 MJ：氣瓶是 DIN 還是 YOKE
+      <span class="m">你的調節器是 DIN 口。韓國和亞洲多數潛店用 YOKE（軛式）氣瓶閥，接不上就整天下不了水。<strong>要嘛確認他們有 DIN 閥或轉接頭，要嘛你自己帶一個 DIN→YOKE 轉接頭。</strong>轉接頭很小、行李裡塞得下，今天就處理。</span></li>
+    <li class="hot">跟 MJ 確認其他細節
+      <span class="m">+82 10-4464-3216。<strong>能不能到 Bayhill 接</strong>（預來洞在西歸浦最西端）、幾點回、配重和保險含不含、要不要帶潛水證照。順便告知你前一晚是紅眼航班、睡眠不足。</span></li>
+    <li>存好三語地名截圖
+      <span class="m">下面每個地點都有韓文原名，遇上不懂英文的司機直接把手機遞過去。</span></li>
+  </ol>
+</section>
+
+<hr>
+
+<!-- ============ 貼士 ============ -->
+<section>
+  <div class="sec"><h2>實用貼士</h2></div>
+
+  <div class="tip">
+    <h3>Google 地圖在韓國不能導航</h3>
+    <p>韓國限制高精度地圖資料出境，Google Maps 只能看地點、照片和評價，開車與走路導航都沒有。所有導航用 Naver 或 Kakao。頁面上每個地點的三個按鈕就是這個分工。</p>
+  </div>
+
+  <div class="tip">
+    <h3>叫車用 Kakao T</h3>
+    <p>濟州市區與西歸浦叫車順暢，郊區等待時間會拉長。Uber 在濟州市以外很少。看到「無司機」時等 2–3 分鐘再叫，或走到大路上。車資參考：機場↔Bayhill 約 ₩45,000–55,000，酒店↔市區景點 ₩5,000–12,000。</p>
+  </div>
+
+  <div class="tip">
+    <h3>潛水與搭機的間隔沒問題</h3>
+    <p>9/7 下午最後一潛，9/10 早上 07:30 起飛，中間約 65 小時，遠超過建議的 18–24 小時免飛時間。真正要注意的是<strong>當天</strong>：潛完 12–24 小時內別爬山、別劇烈運動，所以 9/7 下午只留平路和休息。</p>
+  </div>
+
+  <div class="tip">
+    <h3>9 月的海不能下水</h3>
+    <p>濟州各海水浴場官方開放期到 8 月底／9 月初結束，之後沒有救生員。行程裡的海岸都是走和看，不安排下水。</p>
+  </div>
+
+  <div class="tip">
+    <h3>入境什麼都不用辦</h3>
+    <p>香港特區護照免簽 90 天，K-ETA 對香港豁免至 2026 年 12 月 31 日。落地填紙本入境卡即可。護照有效期需 6 個月以上。</p>
+  </div>
+
+  <div class="tip">
+    <h3>秋夕不影響這趟</h3>
+    <p>2026 年韓國秋夕是 9 月 24–26 日。9/10 就離開，完全錯開人潮與店家休業。</p>
+  </div>
+
+  <div class="tip">
+    <h3>9/7 是星期一</h3>
+    <p>濟州不少私營美術館與展館週一休館，所以那天整天排戶外，沒有撲空風險。</p>
+  </div>
+
+  <div class="tip">
+    <h3>為什麼走 8 號不走 6 號</h3>
+    <p>Bayhill 就在偶來 8 號線上。8 號全程 <span class="ko">월평 → 대평포구</span> 19.6 公里，你住的預來洞大約在第 13 公里處，出門往西 3–4 公里就是終點大坪浦口——不用叫車，走出大門就開始。<br>6 號 <span class="ko">쇠소깍 → 제주올레 여행자센터</span> 是 10.1 公里、3–4 小時，起點在西歸浦最東邊、離酒店 40–45 分鐘車程。落地當天走不了；真想走要整天，得把 9/7 的山房山那條線換掉。</p>
+  </div>
+
+  <div class="tip">
+    <h3>鰻魚飯為什麼排在 9/8</h3>
+    <p><span class="ko">동경밥상</span> 在涯月邑下貴里，離 Bayhill 一小時、離 Grand Hyatt 只要 15 分鐘，正好在你 9/8 北上的路線上。不接受預約，11:30 才放客人、一輪約 10 位、售罄即收，所以那天要 09:00 提前退房去排隊。</p>
+  </div>
+
+  <div class="tip">
+    <h3>兩晚夜班在 Grand Hyatt</h3>
+    <p>9/8 深夜和 9/9 深夜的班都在濟州市的大型商務酒店上，網路條件比海邊度假村好。手機開全球通漫遊做備援，酒店 Wi-Fi 一斷就切熱點。白天行程已按「上完通宵班」的體力排，別再往裡塞。</p>
+  </div>
+</section>
+
+<footer>
+  時間全部以濟州時間 KST（UTC+9）為準，倒數在任何時區打開都正確。<br>
+  香港時間 HKT 比濟州慢 1 小時。
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ---------------- data ---------------- */
+var P = {
+  cju:   {zh:"濟州國際機場", ko:"제주국제공항", en:"Jeju International Airport", lat:33.5070772, lng:126.4934311},
+  bay:   {zh:"Bayhill Pool & Villa", ko:"베이힐 풀앤빌라", en:"Bayhill Pool & Villa", lat:33.2375461, lng:126.3721708},
+  hyatt: {zh:"Grand Hyatt Jeju", ko:"그랜드 하얏트 제주", en:"Grand Hyatt Jeju", lat:33.4853707, lng:126.4815713},
+  jsj:   {zh:"大浦海岸柱狀節理帶", ko:"주상절리대", en:"Jusangjeolli Cliff", lat:33.2367938, lng:126.4254867},
+  cjy:   {zh:"天帝淵瀑布", ko:"천제연폭포", en:"Cheonjeyeon Falls", lat:33.2506678, lng:126.4167726},
+  sbs:   {zh:"山房山 · 山房窟寺", ko:"산방산", en:"Sanbangsan", lat:33.2410682, lng:126.3134467},
+  ymr:   {zh:"龍頭海岸", ko:"용머리해안", en:"Yongmeori Coast", lat:33.2316155, lng:126.3148321},
+  sas:   {zh:"松岳山 環山步道", ko:"송악산", en:"Songaksan", lat:33.1977951, lng:126.2919219},
+  hdm:   {zh:"漢潭海岸散步路", ko:"한담해안산책로", en:"Handam Coastal Trail", lat:33.4591293, lng:126.3103796},
+  ydm:   {zh:"龍頭巖", ko:"용두암", en:"Yongduam Rock", lat:33.5157583, lng:126.5116346},
+  dmm:   {zh:"東門傳統市場", ko:"동문재래시장", en:"Dongmun Market", lat:33.5122122, lng:126.5282021},
+  dkb:   {zh:"東京飯桌 濟州", ko:"동경밥상 제주", en:"Dongkyung Bapsang Jeju", lat:33.4854767, lng:126.4080059},
+  dpp:   {zh:"大坪浦口（올레 8 終點）", ko:"대평포구", en:"Daepyeong Port", lat:33.2372955, lng:126.3618607},
+  mjd:   {zh:"MJ Jeju Diving Club", ko:"태평로 119-1 107호, 서귀포", en:"MJ Jeju Diving Club", lat:33.2443592, lng:126.5355218},
+  olc:   {zh:"西歸浦老城區 · 李仲燮街／每日偶來市場", ko:"제주올레 여행자센터", en:"Seogwipo Old Town", lat:33.2475171, lng:126.5588455}
+};
+
+var DAYS = [
+  {
+    n:"D0", date:"9 月 5 日", wd:"星期六 · 出發日", color:"var(--d0)",
+    note:"江門 → 廣州南 → 深圳羅湖晚餐 → 過關 → 香港機場。全程時間為 UTC+8。唯一的硬風險是廣州南那 18 分鐘換乘；晚餐在羅湖，離口岸 2 公里，後段很寬鬆。",
+    rows:[
+      {t:"15:25",tz:"+8",ttl:"C6934 江門東站發車",badges:[["b-fee","02 車廂 · 無座 · 二等座"]],desc:"站 27 分鐘。提早進站，無座要早點上車找位置。"},
+      {t:"15:52",tz:"+8",ttl:"抵達廣州南站",badges:[["b-warn","換乘只有 18 分鐘"]],desc:"直接走站內換乘通道，不要出站。廣州南很大，下車就走，別買東西。C6934 若晚點超過 15 分鐘，立刻在 12306 改簽下一班到深圳北的車。"},
+      {t:"16:10",tz:"+8",ttl:"G6009 廣州南發車",badges:[["b-fee","檢票口 8 或 A8 · 02 車廂 11C · 一等座"]],desc:"車程 31 分鐘。"},
+      {t:"16:41",tz:"+8",ttl:"抵達深圳北站",desc:"深圳北在龍華，晚餐地點在羅湖。地鐵約 50–60 分鐘（4 號線→會展中心→1 號線）；打車約 35–45 分鐘、¥80–100。"},
+      {t:"17:45",tz:"+8",ttl:"肉祭燒肉一番 · 與朋友晚餐",badges:[["b-fee","晚市 16:30–21:30 · 人均 ¥136"]],desc:"羅湖區愛國路 1009 號益田御龍華府 1 棟 L4-07（益田假日廣場羅湖店）。這個位置很好：離羅湖口岸只有約 2 公里。"},
+      {t:"20:00",tz:"+8",ttl:"吃完，出發去羅湖口岸",badges:[["b-warn","最晚 20:45 起身"]],desc:"打車約 10 分鐘、¥15 上下；地鐵約 15 分鐘。走路也就 25 分鐘。"},
+      {t:"20:30",tz:"+8",ttl:"抵達羅湖口岸",badges:[["b-warn","00:00 關閘"]],desc:"開放 06:30–24:00，必須在 00:00 前完成出境。週六晚間排隊可能 20–40 分鐘。"},
+      {t:"21:05",tz:"+8",ttl:"東鐵 1 站到上水",desc:"羅湖站與管制站直接相連，下車即進出境大堂。到上水約 6 分鐘。"},
+      {t:"21:30",tz:"+8",ttl:"上水 → 機場",badges:[["b-warn","二選一，今天就決定"]],desc:"A43 雙層機場巴士：地鐵 D1 出口左轉下樓，HK$32.4，約 75–85 分鐘。或直接打車：45–55 分鐘、HK$400–500。晚餐若拖過 21:00，直接打車。"},
+      {t:"22:55",tz:"+8",ttl:"抵達香港機場 T2",desc:"UO698 櫃檯約 01:30 關閉，還有 2.5 小時緩衝。手提行李，過了安檢就能休息。"},
+      {t:"02:30",tz:"+8",ttl:"UO698 起飛",desc:"飛行約 3 小時，落地濟州 06:30（KST）。機上盡量睡。"}
+    ]
+  },
+  {
+    n:"D1", date:"9 月 6 日", wd:"星期日", color:"var(--d1)",
+    note:"紅眼班機零睡眠。直接南下寄行李，清早從酒店門口走偶來 8 號的西段，全天活動半徑不超過酒店 15 分鐘。撐不住就砍柱狀節理。當晚無班。",
+    route:["cju","bay","dpp","bay","jsj"],
+    rows:[
+      {t:"02:30",tz:"HKT",ttl:"UO698 香港起飛",desc:"HKG Terminal 2"},
+      {t:"06:30",ttl:"落地濟州 CJU",p:"cju",desc:"入境填紙本卡。出關後在計程車排隊區叫車，或用 Kakao T。"},
+      {t:"07:15",ttl:"打車南下 Bayhill",desc:"橫穿全島約 55–60 分鐘、₩50,000 上下。手提行李隨身。車上補一覺。"},
+      {t:"08:15",ttl:"Bayhill 寄放行李",p:"bay",desc:"前台寄行李，順便當面確認泳池／湯池使用權。酒店就在偶來 8 號線上，出門左轉往西就是步道。"},
+      {t:"08:45",ttl:"走偶來 8 號 · 예래 → 대평 段",p:"dpp",badges:[["b-fee","免費 · 約 3–4 公里 · 1.5 小時"]],desc:"從酒店門口出發往西，經論짓물、下猊浦口到大坪浦口。典型的「바당올레」海岸段，貼著海走，路面平坦，只有接近大坪那段有點坡。清晨海風最舒服，也是一天裡最涼的時候。"},
+      {t:"10:30",ttl:"大坪浦口 · 咖啡",p:"dpp",desc:"8 號線終點的小漁村，被軍山環抱。港邊咖啡館密集，找一家坐著看海。"},
+      {t:"11:30",ttl:"大坪浦口午餐",desc:"村裡海鮮和簡餐都有，走路就到。"},
+      {t:"12:45",ttl:"打車回 Bayhill",desc:"只有約 10 分鐘、₩8,000 上下。"},
+      {t:"13:10",ttl:"大浦海岸柱狀節理帶（可選）",p:"jsj",badges:[["b-warn","撐不住就砍"],["b-fee","門票 ₩2,000 現場買"]],desc:"開放 09:00–17:30，離酒店 13 分鐘車程。六角形玄武岩柱貼著海崖，走一圈約 30 分鐘。走完早上那段若已經很累，直接跳過，回酒店大堂等入住。"},
+      {t:"15:00",ttl:"入住 Bayhill · 睡",p:"bay",badges:[["b-warn","從 9/5 早上算起你會醒著超過 30 小時"]],desc:"睡到 18:00，別設短鬧鐘硬撐。"},
+      {t:"18:30",ttl:"附近晚餐",desc:"酒店周邊或打車去中文一帶，約 10 分鐘。今晚沒班，吃完早點回來。"},
+      {t:"21:00",ttl:"睡",desc:"把睡眠補回來，明天是唯一完整的一天。"}
+    ]
+  },
+  {
+    n:"D2", date:"9 月 7 日", wd:"星期一", color:"var(--d2)",
+    route:["bay","mjd","olc","bay"],
+    note:"潛水日。潛店在西歸浦市區，離酒店 25–30 分鐘。下午結束時你人正好在老城區，可以就地平路逛完再吃晚餐，省一趟往返。當晚沒班。",
+    rows:[
+      {t:"07:00",ttl:"早餐",desc:"潛水前吃飽但別過量，多喝水。紅眼落地隔天潛水，脫水和疲勞是真的風險，跟教練說明你前一晚幾乎沒睡。"},
+      {t:"07:50",ttl:"出發去潛店",badges:[["b-warn","先問能不能到酒店接"],["b-warn","帶好 ₩160,000 現金"]],desc:"打車約 25–30 分鐘、₩25,000 上下。有住客提到 MJ 會到西歸浦的酒店接人，但 Bayhill 在預來洞、是西歸浦最西端，不一定在接送範圍，今天先問清楚。"},
+      {t:"08:30",ttl:"MJ Jeju Diving Club 集合",p:"mjd",badges:[["b-fee","現金 ₩160,000 · 刷卡 ₩170,000"]],desc:"西歸浦市區太平路。電話 +82 10-4464-3216。潛點主要是文島、섶島、범島這幾座外海小島，船潛。裝備店家提供，你自帶調節器（DIN）、面鏡、電腦錶。付現金省 ₩10,000。"},
+      {t:"14:30",ttl:"預計結束",desc:"實際看船班和海況，可能延後。潛店有沖洗設備。"},
+      {t:"15:00",ttl:"市區午餐",badges:[["b-warn","潛完務必補水補餐"]],desc:"太平路一帶就在西歸浦港邊，餐廳不少。"},
+      {t:"16:00",ttl:"西歸浦老城區（可選）",p:"olc",badges:[["b-warn","只走平路，別爬階梯"]],desc:"從潛店往東約 2 公里就是李仲燮街、每日偶來市場和偶來旅行者中心，全是平地老街。潛水後 12–24 小時避免劇烈運動和爬升，正房瀑布那種下切階梯今天跳過。累就直接回酒店。"},
+      {t:"18:00",ttl:"西歸浦晚餐",desc:"市場周邊選擇多，不用再移動。"},
+      {t:"19:30",ttl:"打車回酒店",p:"bay",desc:"約 30 分鐘、₩28,000 上下。"},
+      {t:"21:00",ttl:"睡",desc:"今晚無班，睡飽。"}
+    ]
+  },
+  {
+    n:"D3", date:"9 月 8 日", wd:"星期二", color:"var(--d3)",
+    note:"轉場日：南岸 → 鰻魚飯 → 濟州市 → 涯月日落。餐廳、新酒店和涯月在同一條西向路線上，不繞路。今晚 00:00 開始上班，下午務必補眠。",
+    route:["bay","dkb","hyatt","hdm","hyatt"],
+    rows:[
+      {t:"08:15",ttl:"早餐、收拾"},
+      {t:"09:00",ttl:"提前退房 Bayhill",p:"bay",badges:[["b-warn","前一晚先跟前台講"]],desc:"為了趕上鰻魚飯的排隊，今天要早退房。房費不受影響。"},
+      {t:"09:10",ttl:"打車北上",desc:"約 55–60 分鐘、₩50,000 上下。"},
+      {t:"10:10",ttl:"東京飯桌 排隊",p:"dkb",badges:[["b-warn","不接受預約 · 售罄即收"],["b-fee","人均 ₩40,000–50,000"]],desc:"11:00 開門、11:30 才放客人，一輪約 10 位。有人週六 10:00 到拿 6 號。出發前用 Naver 查今天有沒有開，門口若掛售罄牌先確認是不是昨天沒撤。"},
+      {t:"11:30",ttl:"鰻魚飯",p:"dkb",desc:"招牌是鰻重（우나주），兩條整鰻。附布丁與茶。吃完約 12:30。"},
+      {t:"12:40",ttl:"打車去 Grand Hyatt",desc:"往東約 15 分鐘、₩15,000 上下。"},
+      {t:"13:00",ttl:"抵達 Grand Hyatt，寄行李",p:"hyatt",badges:[["b-warn","順便預約 9/10 送機車"]],desc:"入住是 15:00，先寄行李。到禮賓部把 9/10 05:15 的車訂下來。"},
+      {t:"15:00",ttl:"入住 · 補眠",badges:[["b-warn","今晚有班"]],desc:"睡到 17:30。這段睡眠是今晚 9 小時班的燃料。"},
+      {t:"18:00",ttl:"打車去涯月",desc:"約 30 分鐘，₩25,000–30,000。"},
+      {t:"18:30",ttl:"漢潭海岸散步路",p:"hdm",desc:"約 1.2 公里的黑色火山岩海岸步道，兩端和沿途都是咖啡館。朝西北，是島上看日落的方向。免費、全天開放。"},
+      {t:"18:55",ttl:"日落",desc:"9 月 8 日日落約 18:50–19:00。走到步道西段找個位置。"},
+      {t:"19:30",ttl:"涯月晚餐",desc:"步道旁餐廳選擇多。營業狀況當天用 Naver 查，別空跑。"},
+      {t:"20:45",ttl:"回酒店",desc:"約 30 分鐘。"},
+      {t:"21:30",ttl:"再睡一段",desc:"能睡 2 小時是 2 小時。"},
+      {t:"00:00",ttl:"上班",work:true,badges:[["b-work","00:00–09:00 · 9 小時"]],desc:"跨到 9 月 9 日。漫遊熱點放在手邊備用。"}
+    ]
+  },
+  {
+    n:"D4", date:"9 月 9 日", wd:"星期三", color:"var(--d4)",
+    note:"通宵班剛結束，下午才出門，全部安排在市區 15 分鐘車程內。當晚還有一班。",
+    route:["hyatt","ydm","dmm","hyatt"],
+    rows:[
+      {t:"09:00",ttl:"下班",work:true,desc:"吃點東西就睡。"},
+      {t:"09:30",ttl:"睡覺",desc:"睡到 15:00，不設鬧鐘以外的行程。"},
+      {t:"15:30",ttl:"龍頭巖",p:"ydm",desc:"離酒店約 10 分鐘車程，免費。像龍頭探出海面的火山岩，繞一圈 20 分鐘，海風很舒服。"},
+      {t:"16:30",ttl:"海邊咖啡",desc:"龍頭巖一帶臨海咖啡館多，坐著發呆就好。"},
+      {t:"17:30",ttl:"東門傳統市場",p:"dmm",desc:"營業至 21:00。烤魷魚、糖餅、濟州橘子和伴手禮都在這裡。部分攤位只收現金。"},
+      {t:"19:00",ttl:"黑豬肉晚餐",desc:"東門市場旁就是黑豬肉一條街，走路可達。"},
+      {t:"20:30",ttl:"回酒店",desc:"約 10 分鐘。"},
+      {t:"21:00",ttl:"睡覺",desc:"睡到 23:30。"},
+      {t:"00:00",ttl:"上班",work:true,badges:[["b-work","00:00–09:00 · 排定"],["b-warn","05:00 後需補時"]],desc:"跨到 9 月 10 日。05:00 要出發去機場，之後的時數另外補。"}
+    ]
+  },
+  {
+    n:"D5", date:"9 月 10 日", wd:"星期四", color:"var(--d5)",
+    note:"只有回程。從 Grand Hyatt 到機場 12–15 分鐘，前一晚已預約好車。",
+    route:["hyatt","cju"],
+    rows:[
+      {t:"00:00",ttl:"上班",work:true,badges:[["b-work","00:00–05:00"]],desc:"做到 05:00，剩餘時數後補。"},
+      {t:"05:15",ttl:"預約的送機車到",p:"hyatt",badges:[["b-warn","前一晚務必確認"]],desc:"若車沒到，立刻改用 Kakao T，連洞凌晨有車流。"},
+      {t:"05:35",ttl:"抵達 CJU",p:"cju",desc:"國際線出發樓層。"},
+      {t:"05:45",ttl:"報到、安檢",desc:"手提行李，不用等托運。櫃檯約起飛前 60 分鐘關閉。"},
+      {t:"07:30",ttl:"UO699 起飛"},
+      {t:"09:40",tz:"HKT",ttl:"抵達香港 HKG",desc:"Terminal 1。"}
+    ]
+  }
+];
+
+/* 倒數用的事件表：全部帶絕對時區偏移 */
+var EVENTS = [
+  {iso:"2026-09-05T15:25:00+08:00", t:"C6934 江門東站發車", s:"02 車廂 · 無座 · 到廣州南 15:52"},
+  {iso:"2026-09-05T15:52:00+08:00", t:"廣州南換乘 · 只有 18 分鐘", s:"走站內換乘通道，不要出站"},
+  {iso:"2026-09-05T16:10:00+08:00", t:"G6009 廣州南發車", s:"檢票口 8 或 A8 · 02 車廂 11C · 到深圳北 16:41"},
+  {iso:"2026-09-05T17:45:00+08:00", t:"肉祭燒肉一番 · 深圳晚餐", s:"羅湖益田假日廣場 · 離口岸 2 公里"},
+  {iso:"2026-09-05T20:00:00+08:00", t:"出發去羅湖口岸", s:"打車約 10 分鐘 · 口岸 00:00 關閘"},
+  {iso:"2026-09-05T21:30:00+08:00", t:"上水 → 香港機場", s:"A43 約 80 分鐘，或打車 50 分鐘"},
+  {iso:"2026-09-05T22:40:00+08:00", t:"上水搭 A43 或打車去機場", s:"A43 約 75–85 分鐘 · 打車 45–55 分鐘"},
+  {iso:"2026-09-06T00:15:00+08:00", t:"抵達香港機場 T2", s:"UO698 櫃檯約 01:30 關閉"},
+  {iso:"2026-09-06T02:30:00+08:00", t:"UO698 起飛", s:"香港 HKG T2 → 濟州 CJU"},
+  {iso:"2026-09-06T06:30:00+09:00", t:"落地濟州 CJU", s:"入境後打車南下 Bayhill"},
+  {iso:"2026-09-06T08:45:00+09:00", t:"走偶來 8 號 · 예래 → 대평 段", s:"從酒店門口出發 · 約 3–4 公里"},
+  {iso:"2026-09-06T11:30:00+09:00", t:"大坪浦口午餐", s:"대평포구 · 8 號線終點漁村"},
+  {iso:"2026-09-06T15:00:00+09:00", t:"入住 Bayhill · 睡", s:"睡到 18:00，別硬撐"},
+  {iso:"2026-09-07T07:50:00+09:00", t:"出發去潛店", s:"西歸浦太平路 · 打車 25–30 分鐘"},
+  {iso:"2026-09-07T08:30:00+09:00", t:"MJ Jeju Diving Club 集合", s:"總行程 5–6 小時"},
+  {iso:"2026-09-07T14:30:00+09:00", t:"潛水預計結束", s:"市區午餐，當天別爬山"},
+  {iso:"2026-09-08T09:00:00+09:00", t:"提前退房 Bayhill", s:"打車北上，趕鰻魚飯排隊"},
+  {iso:"2026-09-08T10:10:00+09:00", t:"東京飯桌 排隊", s:"동경밥상 · 11:30 放位，約 10 席"},
+  {iso:"2026-09-08T15:00:00+09:00", t:"入住 Grand Hyatt · 補眠", s:"今晚 00:00 上班"},
+  {iso:"2026-09-08T18:30:00+09:00", t:"漢潭海岸散步路", s:"한담해안산책로 · 日落約 18:55"},
+  {iso:"2026-09-09T00:00:00+09:00", t:"上班 00:00–09:00", s:"在 Grand Hyatt"},
+  {iso:"2026-09-09T15:30:00+09:00", t:"龍頭巖", s:"용두암 · 離酒店 10 分鐘"},
+  {iso:"2026-09-09T17:30:00+09:00", t:"東門傳統市場", s:"동문재래시장 · 營業至 21:00"},
+  {iso:"2026-09-10T00:00:00+09:00", t:"上班 00:00–05:00", s:"05:00 出發去機場"},
+  {iso:"2026-09-10T05:15:00+09:00", t:"送機車出發", s:"12–15 分鐘到 CJU"},
+  {iso:"2026-09-10T07:30:00+09:00", t:"UO699 起飛", s:"濟州 CJU → 香港 HKG T1"},
+  {iso:"2026-09-10T09:40:00+08:00", t:"抵達香港 HKG T1", s:"行程結束"}
+];
+
+/* ---------------- nav links ---------------- */
+function naver(p){ return "https://map.naver.com/p/search/" + encodeURIComponent(p.ko); }
+function kakao(p){ return "https://map.kakao.com/link/to/" + encodeURIComponent(p.ko) + "," + p.lat + "," + p.lng; }
+function google(p){ return "https://www.google.com/maps/search/?api=1&query=" + p.lat + "," + p.lng; }
+function naverLeg(a,b){
+  return "https://map.naver.com/p/directions/" +
+    a.lng + "," + a.lat + "," + encodeURIComponent(a.ko) + ",,/" +
+    b.lng + "," + b.lat + "," + encodeURIComponent(b.ko) + ",,/-/car";
+}
+
+function el(tag, cls, txt){
+  var e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(txt != null) e.textContent = txt;
+  return e;
+}
+
+/* ---------------- render days ---------------- */
+(function renderDays(){
+  var host = document.getElementById("days");
+
+  DAYS.forEach(function(D, di){
+    var sec = el("section","day");
+    sec.style.setProperty("--dc", D.color);
+
+    var hd = el("div","dayhd");
+    hd.appendChild(el("span","n", D.n));
+    hd.appendChild(el("h3", null, D.date));
+    hd.appendChild(el("span","wd", D.wd));
+    sec.appendChild(hd);
+
+    if(D.note) sec.appendChild(el("p","daynote", D.note));
+
+    /* --- route toggle --- */
+    if(D.route){
+    var btn = el("button","routebtn");
+    btn.type = "button";
+    btn.setAttribute("aria-expanded","false");
+    var pts = D.route.map(function(k){ return P[k]; });
+    btn.appendChild(el("span",null,"當日路線圖 + 逐段導航（" + (pts.length-1) + " 段）"));
+    btn.appendChild(el("span","chev","▶"));
+    sec.appendChild(btn);
+
+    var panel = el("div","routepanel");
+    panel.appendChild(miniMap(pts, D.color));
+    var legs = el("div","legs");
+    for(var i=0;i<pts.length-1;i++){
+      var leg = el("div","leg");
+      var tx = el("div","txt", pts[i].zh + " → " + pts[i+1].zh);
+      var a1 = el("a",null,"Naver 路線");
+      a1.href = naverLeg(pts[i], pts[i+1]); a1.target="_blank"; a1.rel="noopener";
+      var a2 = el("a",null,"Kakao");
+      a2.href = kakao(pts[i+1]); a2.target="_blank"; a2.rel="noopener";
+      leg.appendChild(tx); leg.appendChild(a1); leg.appendChild(a2);
+      legs.appendChild(leg);
+    }
+    panel.appendChild(legs);
+    sec.appendChild(panel);
+
+    btn.addEventListener("click", function(){
+      var open = panel.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    }
+
+    /* --- timeline --- */
+    var tl = el("div","tl");
+    D.rows.forEach(function(r){
+      var row = el("div","row" + (r.work ? " work" : ""));
+      var t = el("div","t");
+      t.appendChild(document.createTextNode(r.t));
+      var sm = el("small", null, r.tz ? r.tz : "KST");
+      t.appendChild(sm);
+      row.appendChild(t);
+
+      var c = el("div","c");
+      c.appendChild(el("div","ttl", r.ttl));
+
+      if(r.p){
+        var pl = P[r.p];
+        c.appendChild(el("div","ko", pl.ko));
+        c.appendChild(el("div","en", pl.en));
+      }
+      if(r.badges){
+        r.badges.forEach(function(b){
+          c.appendChild(el("span","badge " + b[0], b[1]));
+        });
+      }
+      if(r.desc) c.appendChild(el("div","desc", r.desc));
+
+      if(r.p){
+        var pl2 = P[r.p];
+        var nv = el("div","navs");
+        var l1 = el("a","n1","Naver 導航"); l1.href = naver(pl2); l1.target="_blank"; l1.rel="noopener";
+        var l2 = el("a",null,"Kakao 導航"); l2.href = kakao(pl2); l2.target="_blank"; l2.rel="noopener";
+        var l3 = el("a",null,"Google 看圖"); l3.href = google(pl2); l3.target="_blank"; l3.rel="noopener";
+        nv.appendChild(l1); nv.appendChild(l2); nv.appendChild(l3);
+        c.appendChild(nv);
+      }
+      row.appendChild(c);
+      tl.appendChild(row);
+    });
+    sec.appendChild(tl);
+    host.appendChild(sec);
+  });
+})();
+
+/* ---------------- per-day mini map ---------------- */
+function miniMap(pts, color){
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox","0 0 320 150");
+  svg.setAttribute("role","img");
+
+  var lats = pts.map(function(p){return p.lat;});
+  var lngs = pts.map(function(p){return p.lng;});
+  var minLa = Math.min.apply(null,lats), maxLa = Math.max.apply(null,lats);
+  var minLo = Math.min.apply(null,lngs), maxLo = Math.max.apply(null,lngs);
+  var padLa = Math.max((maxLa-minLa)*0.22, 0.006);
+  var padLo = Math.max((maxLo-minLo)*0.22, 0.006);
+  minLa-=padLa; maxLa+=padLa; minLo-=padLo; maxLo+=padLo;
+
+  function X(lo){ return 28 + (lo-minLo)/(maxLo-minLo) * 264; }
+  function Y(la){ return 22 + (maxLa-la)/(maxLa-minLa) * 106; }
+
+  var d = pts.map(function(p,i){ return (i?"L":"M") + X(p.lng).toFixed(1) + "," + Y(p.lat).toFixed(1); }).join(" ");
+  var path = document.createElementNS(NS,"path");
+  path.setAttribute("d", d);
+  path.setAttribute("fill","none");
+  path.setAttribute("stroke", color);
+  path.setAttribute("stroke-width","2.2");
+  path.setAttribute("stroke-linecap","round");
+  path.setAttribute("stroke-linejoin","round");
+  svg.appendChild(path);
+
+  pts.forEach(function(p,i){
+    var c = document.createElementNS(NS,"circle");
+    c.setAttribute("cx", X(p.lng).toFixed(1));
+    c.setAttribute("cy", Y(p.lat).toFixed(1));
+    c.setAttribute("r", "4.5");
+    c.setAttribute("fill", color);
+    svg.appendChild(c);
+
+    var t = document.createElementNS(NS,"text");
+    var x = X(p.lng), y = Y(p.lat);
+    t.setAttribute("x", x.toFixed(1));
+    t.setAttribute("y", (y > 75 ? y + 15 : y - 9).toFixed(1));
+    t.setAttribute("text-anchor", x > 230 ? "end" : (x < 60 ? "start" : "middle"));
+    t.setAttribute("font-size","9");
+    t.setAttribute("fill","currentColor");
+    t.setAttribute("font-family","var(--sans)");
+    t.textContent = p.ko;
+    svg.appendChild(t);
+  });
+  return svg;
+}
+
+/* ---------------- countdown ---------------- */
+var KST_FMT = new Intl.DateTimeFormat("zh-TW",{
+  timeZone:"Asia/Seoul", month:"numeric", day:"numeric",
+  hour:"2-digit", minute:"2-digit", hour12:false
+});
+
+function localFmt(dt){
+  try{
+    return new Intl.DateTimeFormat("zh-TW",{
+      month:"numeric", day:"numeric", hour:"2-digit", minute:"2-digit", hour12:false
+    }).format(dt);
+  }catch(e){ return ""; }
+}
+
+var elT = document.getElementById("evtTitle");
+var elS = document.getElementById("evtSub");
+var elD = document.getElementById("cd"), elH = document.getElementById("ch");
+var elM = document.getElementById("cm"), elSec = document.getElementById("cs");
+var elTz = document.getElementById("tzLine");
+
+function pad(n){ return n < 10 ? "0" + n : "" + n; }
+
+function tick(){
+  var now = Date.now();
+  var next = null;
+  for(var i=0;i<EVENTS.length;i++){
+    var ts = new Date(EVENTS[i].iso).getTime();
+    if(ts > now){ next = {ev:EVENTS[i], ts:ts}; break; }
+  }
+
+  if(!next){
+    elT.firstChild.nodeValue = "行程已結束";
+    elS.textContent = "濟州島 9/6 – 9/10";
+    elD.textContent = elH.textContent = elM.textContent = elSec.textContent = "0";
+    elTz.innerHTML = "一路平安。";
+    return;
+  }
+
+  var diff = Math.max(0, next.ts - now);
+  var s = Math.floor(diff/1000);
+  var dd = Math.floor(s/86400); s -= dd*86400;
+  var hh = Math.floor(s/3600);  s -= hh*3600;
+  var mm = Math.floor(s/60);    s -= mm*60;
+
+  elT.firstChild.nodeValue = next.ev.t;
+  elS.textContent = next.ev.s || "";
+  elD.textContent = dd;
+  elH.textContent = pad(hh);
+  elM.textContent = pad(mm);
+  elSec.textContent = pad(s);
+
+  var dt = new Date(next.ts);
+  var kst = KST_FMT.format(dt);
+  var loc = localFmt(dt);
+  var tzName = "";
+  try{ tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; }catch(e){}
+  var offMin = -dt.getTimezoneOffset();
+
+  var html = "<b>" + kst + "</b>　濟州時間 KST (UTC+9)";
+  if(offMin !== 540){
+    html += "<br><b>" + loc + "</b>　你所在時區 " + (tzName ? tzName : "本機");
+  }
+  elTz.innerHTML = html;
+}
+
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
 </html>
